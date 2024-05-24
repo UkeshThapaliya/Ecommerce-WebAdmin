@@ -88,6 +88,11 @@ class _MainScreenState extends State<MainScreen> {
               route: WithdrawalScreen.routeName,
             ),
             AdminMenuItem(
+              title: 'Orders',
+              icon: CupertinoIcons.shopping_cart,
+              route: OrderScreen.routeName,
+            ),
+            AdminMenuItem(
               title: 'Categories',
               icon: Icons.category,
               route: CategoriesScreen.routeName,

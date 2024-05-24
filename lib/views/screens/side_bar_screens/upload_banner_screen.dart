@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:web_admin/views/screens/side_bar_screens/widgets/banner_widget.dart';
 
 class UploadBannerScreen extends StatefulWidget {
   static const String routeName = '\Upload Banners';
@@ -39,11 +41,17 @@ class _UploadBannerScreenState extends State<UploadBannerScreen> {
 
   // create a funtion to store image in firestoredatabase
   uploadToFireStore() async {
+    EasyLoading.show();
     if (_image != null) {
       String imageUrl = await _uploadBannersToStorage(_image);
 
       await _firestore.collection("Banners").doc(fileName).set({
         "image": imageUrl,
+      }).whenComplete(() {
+        EasyLoading.showSuccess("Saved");
+        setState(() {
+          _image = null;
+        });
       });
     }
   }
@@ -117,7 +125,27 @@ class _UploadBannerScreenState extends State<UploadBannerScreen> {
                 child: Text('Save'),
               ),
             ],
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Divider(
+              color: Colors.grey,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              alignment: Alignment.topLeft,
+              child: Text(
+                'Banners ',
+                style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          BannerWidget(),
         ],
       ),
     );
