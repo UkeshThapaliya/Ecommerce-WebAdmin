@@ -131,7 +131,7 @@ class _MainScreenState extends State<MainScreen> {
             color: const Color(0xff444444),
             child: const Center(
               child: Text(
-                'Log Out ',
+                ' ',
                 style: TextStyle(
                   color: Colors.white,
                 ),
